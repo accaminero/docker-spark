@@ -3,6 +3,8 @@
 
 A `debian:jessie` based [Spark](http://spark.apache.org) container. Use it in a standalone cluster with the accompanying `docker-compose.yml`, or as a base for more complex recipes.
 
+This repository is a fork of [gettyimages/docker-spark](https://github.com/gettyimages/docker-spark).
+
 ## docker example
 
 To run `SparkPi`, run the image with Docker:
