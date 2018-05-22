@@ -36,6 +36,10 @@ To run `SparkPi`, exec into a container:
     docker exec -it dockerspark_master_1 /bin/bash
     bin/run-example SparkPi 10
 
+## Spark streaming example
+
+TO DO
+
 ## license
 
 MIT
