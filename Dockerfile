@@ -17,12 +17,31 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 RUN apt-get update \
- && apt-get install -y curl unzip nano wget\
+ && apt-get install -y curl unzip nano wget bzip2\
     python3 python3-setuptools \
  && ln -s /usr/bin/python3 /usr/bin/python \
  && easy_install3 pip py4j \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+# Instal Anaconda (which includes Jupyter)
+RUN wget https://repo.continuum.io/archive/Anaconda2-5.0.1-Linux-x86_64.sh \
+ && Anaconda2-5.0.1-Linux-x86_64.sh -b -p /opt/anaconda \ 
+ && rm -rf Anaconda2-5.0.1-Linux-x86_64.sh
+ 
+# Disable token authentication for Jupyter Notebook
+RUN mkdir -p /root/.jupyter
+RUN touch /root/.jupyter/jupyter_notebook_config.py
+RUN echo "c.NotebookApp.token = ''" >> /root/.jupyter/jupyter_notebook_config.py
+RUN echo "c.NotebookApp.password = ''" >> /root/.jupyter/jupyter_notebook_config.py
+
+# Set Environment Variable to use ipython with PySpark
+RUN echo 'Set environment variables'
+RUN mkdir -p /media/notebooks
+ENV PYSPARK_PYTHON /opt/anaconda/bin/python
+ENV IPYTHON 1
+ENV IPYTHON_OPTS "notebook --port 8889 --notebook-dir='/media/notebooks' --ip='*' --no-browser"
+ENV PATH $PATH:/opt/anaconda/bin
 
 # http://blog.stuart.axelbrooke.com/python-3-on-spark-return-of-the-pythonhashseed
 ENV PYTHONHASHSEED 0
@@ -68,6 +87,8 @@ RUN curl -sL --retry 3 \
   | tar x -C /usr/ \
  && mv /usr/$SPARK_PACKAGE $SPARK_HOME \
  && chown -R root:root $SPARK_HOME
+
+RUN source /opt/anaconda/bin/activate
 
 WORKDIR $SPARK_HOME
 CMD ["bin/spark-class", "org.apache.spark.deploy.master.Master"]
