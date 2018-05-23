@@ -26,7 +26,7 @@ RUN apt-get update \
 
 # Instal Anaconda (which includes Jupyter)
 RUN wget https://repo.continuum.io/archive/Anaconda2-5.0.1-Linux-x86_64.sh \
- && Anaconda2-5.0.1-Linux-x86_64.sh -b -p /opt/anaconda \ 
+ && ./Anaconda2-5.0.1-Linux-x86_64.sh -b -p /opt/anaconda \ 
  && rm -rf Anaconda2-5.0.1-Linux-x86_64.sh
  
 # Disable token authentication for Jupyter Notebook
