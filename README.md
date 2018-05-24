@@ -63,7 +63,7 @@ Then you can create a new notebook and paste the following code inside one or mo
     RDDread.takeSample(False, 10, 2)
     RDDread.count()
 
-This is shonw in the following figure:
+This is shown in the following figure:
 
 ![Example notebook](./example-notebook.png?raw=true)
 
