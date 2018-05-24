@@ -1,5 +1,5 @@
 master:
-  image: accaminero/docker-spark
+  image: accaminero/docker-spark:test2
   command: bin/spark-class org.apache.spark.deploy.master.Master -h master
   hostname: master
   environment:
@@ -27,7 +27,7 @@ master:
     - ./data:/tmp/data
 
 worker1:
-  image: accaminero/docker-spark
+  image: accaminero/docker-spark:test2
   command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
   hostname: worker1
   environment:
@@ -53,7 +53,7 @@ worker1:
     - ./data:/tmp/data
 
 worker2:
-  image: accaminero/docker-spark
+  image: accaminero/docker-spark:test2
   command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
   hostname: worker2
   environment:
@@ -79,7 +79,7 @@ worker2:
     - ./data:/tmp/data
 
 worker3:
-  image: accaminero/docker-spark
+  image: accaminero/docker-spark:test2
   command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
   hostname: worker3
   environment:

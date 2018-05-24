@@ -31,10 +31,41 @@ The SparkUI will be running at `http://${YOUR_DOCKER_HOST}:8080` with one worker
     docker exec -it dockerspark_master_1 /bin/bash
     bin/pyspark
 
+Then you can paste this code:
+
+    RDDread = sc.textFile("file:///usr/spark-2.3.0/README.md")
+    RDDread.first()
+    RDDread.take(5)
+    RDDread.takeSample(False, 10, 2)
+    RDDread.count()
+
+
 To run `SparkPi`, exec into a container:
 
     docker exec -it dockerspark_master_1 /bin/bash
     bin/run-example SparkPi 10
+
+## jupyter example
+
+To run Jupyter notebooks, exec into a container and run the jupyter server: 
+
+    jupyter notebook --port 8889 --notebook-dir='/media/notebooks' --ip='*' --no-browser   --allow-root
+
+Then you can create a new notebook and paste the following code inside one or more cells:
+
+    import findspark
+    findspark.init()
+    import pyspark
+    sc = pyspark.SparkContext(appName="test")
+    RDDread = sc.textFile("file:///usr/spark-2.3.0/README.md")
+    RDDread.first()
+    RDDread.take(5)
+    RDDread.takeSample(False, 10, 2)
+    RDDread.count()
+
+This is shonw in the following figure:
+
+![Example notebook](./example-notebook.png?raw=true)
 
 ## Spark streaming example
 
