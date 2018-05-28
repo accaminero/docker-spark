@@ -1,4 +1,4 @@
-FROM gettyimages/spark
+FROM gettyimages/spark:2.3.0-hadoop-2.8
 MAINTAINER Agustin C. Caminero
 
 RUN apt-get update \
